@@ -17,8 +17,13 @@ cron("* * * * *", async () => {  // Toutes les minutes
                 continue;
             }
 
-            const data = await response.text(); // Vous pouvez utiliser .json() si vous attendez un JSON
-            console.log(`Réponse reçue de ${url}: ${data}`);
+            // Vérifier si l'URL est hébergée sur Render
+            if (url.includes("onrender.com")) {
+                const data = await response.text(); // Utiliser .json() si vous attendez un JSON
+                console.log(`Réponse reçue de ${url}: ${data}`);
+            } else {
+                console.log(`Ping réussi pour ${url}`);
+            }
         } catch (error) {
             console.error(`Erreur lors de la requête à ${url}:`, error);
         }
